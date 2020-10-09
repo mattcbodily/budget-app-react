@@ -3,6 +3,7 @@ const express = require('express'),
       session = require('express-session'),
       massive = require('massive'),
       authCtrl = require('./controllers/authController'),
+      budgetCtrl = require('./controllers/budgetController'),
       {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
       app = express();
 
@@ -26,5 +27,8 @@ massive({
 app.post('/api/register', authCtrl.register);
 app.post('/api/login', authCtrl.login);
 app.get('/api/logout', authCtrl.logout);
+
+//Budget Endpoints
+app.post('/api/budget', budgetCtrl.createBudget);
 
 app.listen(SERVER_PORT, () => console.log(`Budgeting on ${SERVER_PORT}`));

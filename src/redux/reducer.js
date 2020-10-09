@@ -24,6 +24,7 @@ export default function reducer(state = initialState, action){
 
     switch (type) {
         case GET_USER:
+            return {...state, user: payload};
         case CLEAR_USER:
             return {...state, user: payload};
         default:

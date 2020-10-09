@@ -11,18 +11,23 @@ const Landing = props => {
         [verPassword, setVerPassword] = useState(''),
         [registerView, setRegisterView] = useState(false);
 
-    const register = () => {
+    const register = (e) => {
+        e.preventDefault();
+
         if(password && password === verPassword){
             axios.post('/api/register', {firstName, lastName, email, password})
                 .then(res => {
+                    console.log(res.data)
                     props.getUser(res.data);
-                    props.history.push('/dashboard');
+                    props.history.push('/budget-wizard');
                 })
                 .catch(err => console.log(err));
         }
     }
 
-    const login = () => {
+    const login = (e) => {
+        e.preventDefault();
+
         axios.post('/api/login', {email, password})
             .then(res => {
                 props.getUser(res.data);
@@ -49,13 +54,13 @@ const Landing = props => {
                 ? (
                     <>
                         <input type='password' value={verPassword} onChange={e => setVerPassword(e.target.value)}/>
-                        <button onClick={register}>Register</button>
+                        <button onClick={e => register(e)}>Register</button>
                         <p>Have an account? <span onClick={() => setRegisterView(false)}>Sign in here</span></p>
                     </>
                 )
                 : (
                     <>
-                        <button onClick={login}>Log in</button>
+                        <button onClick={e => login(e)}>Log in</button>
                         <p>Don't have an account? <span onClick={() => setRegisterView(true)}>Sign up here</span></p>
                     </>
                 )}
