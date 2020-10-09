@@ -20,8 +20,6 @@ const BudgetWizard = props => {
             })
             .catch(err => console.log(err));
     }
-
-    console.log(props.user)
     
     return (
         <main>
